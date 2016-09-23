@@ -3,7 +3,7 @@
 
 Term: Fall 2016
 
-+ Team #
++ Team # 2
 + Projec title: Lorem ipsum dolor sit amet
 + Team members
 	+ team member 1: Han Cui

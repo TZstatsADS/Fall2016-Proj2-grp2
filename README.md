@@ -6,7 +6,7 @@ Term: Fall 2016
 + Team #
 + Projec title: Lorem ipsum dolor sit amet
 + Team members
-	+ team member 1
+	+ team member 1: Han Cui
 	+ team member 2
 	+ team member 3
 	+ team member 4

@@ -8,7 +8,7 @@ Term: Fall 2016
 + Team members
 	+ team member 1: Han Cui
 	+ team member 2: Jing Mu
-	+ team member 3
+	+ team member 3: Erica Kilbride
 	+ team member 4
 	+ team member 5
 	

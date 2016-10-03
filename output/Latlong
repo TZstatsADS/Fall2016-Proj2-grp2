@@ -83,5 +83,6 @@ for (ii in seq(startindex, length(addresses))){
 sub$lat <- geocoded$lat
 sub$long <- geocoded$lat
 sub$accuracy <- geocoded$accuracy
+sub$formatted_address <- geocoded$formatted_address
 
 #then we will rbind these subs

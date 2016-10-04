@@ -1,3 +1,5 @@
+library(dplyr)
+
 load('rest.RData')
 rest <- rest[,!colnames(rest) %in% c("SCORE", "RECORD.DATE")]
 rest$ADDRESSS <- paste(as.character(rest$BUILDING), as.character(rest$STREET), as.character(rest$ZIPCODE), sep = " ")

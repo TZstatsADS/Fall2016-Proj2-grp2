@@ -9,12 +9,12 @@ restaurant <- rest %>% group_by(ADDRESSS) %>% summarise(name = first(DBA))
 ##to do this, subset based on your index and name this sub[n]...the rest of the code will use the addresses in sub
 ##divisions: 23728/5 = 4745.6
 #sub1 <- 1:4746 (ERICA)
-#sub2 <- 4747: 9493 (JUNG)
+#sub2 <- 4747: 9493 (JING)
 #sub3 <- 9494:14240 (YIXIN)
 #sub4 <- 14241:18987 (HAN)
 #sub5 <- 18988: 23728 (YIFEI)
 
-sub1 <- restaurant[1:4582,]
+sub1 <- restaurant[1:4746,]
 
 
 #get lat/long

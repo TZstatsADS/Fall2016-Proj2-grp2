@@ -1,4 +1,4 @@
-rest<- read.csv("DOHMH_New_York_City_Restaurant_Inspection_Results.csv")  
+rest<- load('rest.RData') 
 rest <- rest[,!colnames(rest) %in% c("SCORE", "RECORD.DATE")]
 rest$ADDRESSS <- paste(as.character(rest$BUILDING), as.character(rest$STREET), as.character(rest$ZIPCODE), sep = " ")
 

@@ -1,4 +1,5 @@
 library(dplyr)
+library(ggmap)
 
 load('rest.RData')
 rest <- rest[,!colnames(rest) %in% c("SCORE", "RECORD.DATE")]

@@ -1,6 +1,5 @@
 rest<- read.csv("DOHMH_New_York_City_Restaurant_Inspection_Results.csv")  
 rest <- rest[,!colnames(rest) %in% c("SCORE", "RECORD.DATE")]
-rest <-na.omit(rest)
 rest$ADDRESSS <- paste(as.character(rest$BUILDING), as.character(rest$STREET), as.character(rest$ZIPCODE), sep = " ")
 
 #unique restaurant locations

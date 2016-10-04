@@ -8,6 +8,23 @@ rest <-na.omit(rest)
 
 r <- rest %>% group_by(DBA, VIOLATION.CODE, RECORD.DATE) %>% summarise(x = n(), VIOLATION.DESCRIPTION = first(VIOLATION.DESCRIPTION))
 
+r[grep(pattern='02', r$VIOLATION.CODE),]$VIOLATION.DESCRIPTION <- 'Food Temperature'
+r[grep(pattern='03', r$VIOLATION.CODE),]$VIOLATION.DESCRIPTION <- 'Food Source'
+r[grep(pattern='04', r$VIOLATION.CODE),]$VIOLATION.DESCRIPTION <- 'Food Protection'
+r[grep(pattern='05', r$VIOLATION.CODE),]$VIOLATION.DESCRIPTION <- 'Working Environment Safety'
+r[grep(pattern='06', r$VIOLATION.CODE),]$VIOLATION.DESCRIPTION <- 'Workers Cleanliness'
+r[grep(pattern='07', r$VIOLATION.CODE),]$VIOLATION.DESCRIPTION <- 'Duties of Officer'
+r[grep(pattern='08', r$VIOLATION.CODE),]$VIOLATION.DESCRIPTION <- 'Facility Issues'
+r[grep(pattern='09', r$VIOLATION.CODE),]$VIOLATION.DESCRIPTION <- 'Food Storage'
+r[grep(pattern='10', r$VIOLATION.CODE),]$VIOLATION.DESCRIPTION <- 'Utility Issues'
+r[grep(pattern='15', r$VIOLATION.CODE),]$VIOLATION.DESCRIPTION <- 'Tabacco Issues'
+r[grep(pattern='16', r$VIOLATION.CODE),]$VIOLATION.DESCRIPTION <- 'Food Nuitrition/Calories'
+r[grep(pattern='18', r$VIOLATION.CODE),]$VIOLATION.DESCRIPTION <- 'Documents Not Present'
+r[grep(pattern='20', r$VIOLATION.CODE),]$VIOLATION.DESCRIPTION <- 'Information Not Posted'
+r[grep(pattern='22', r$VIOLATION.CODE),]$VIOLATION.DESCRIPTION <- 'Facility Issues 2'
+r[grep(pattern='99', r$VIOLATION.CODE),]$VIOLATION.DESCRIPTION <- 'Other General Violation'
+
+
 rest$ADDRESSS <- paste(as.character(rest$BUILDING), as.character(rest$STREET), as.character(rest$ZIPCODE), sep = " ")
 restaurant <- rest %>% group_by(ADDRESSS) %>% summarise(name = first(DBA))
 

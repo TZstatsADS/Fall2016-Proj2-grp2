@@ -79,7 +79,7 @@ tabPanel('Dynamic Map of Grades',
                            h2('Restaurant Grades')),
              selectInput(inputId = 'GRADE',label = 'Grade',
                          choices = GRADE,
-                         selected = "All")
+                         selected = "A")
              
          ))
   )

@@ -66,12 +66,12 @@ output$map2 <- renderLeaflet({
 
 # Filter bind data
 drawv <- reactive({
-  if (input$GRADE == ""){
-    k <- filter(bind)
+  if (input$GRADE == "All"){
+    k <- bind
     return(k)
   }
   else{
-    k <- filter(bind, GRADE %in% input$GRADE)
+    k <- filter(bind, GRADE == input$GRADE)
     return(k)
   }})
 

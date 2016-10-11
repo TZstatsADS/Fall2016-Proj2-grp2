@@ -24,21 +24,12 @@ cuisine <- c(
 
 year <- unique(as.numeric(b$year))
 
-GRADE <- levels(bind$GRADE)
+GRADE <- c("All" ,"A", "B", "C", "Z")
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(navbarPage("Restaurant Violations", id="nav",
   
-  # Application title
-  #titlePanel("Restaurant Scores"),
-  
-  # Sidebar with a slider input for number of bins 
- 
-    
-#    # Show a plot of the generated distribution
-#    tabPanel("Inspection Grades",
-#      leafletOutput("map")
-#    ),
+
   tabPanel("Dynamic Map of Scores",
            div(class="outer",
                
@@ -79,7 +70,7 @@ tabPanel('Dynamic Map of Grades',
                            h2('Restaurant Grades')),
              selectInput(inputId = 'GRADE',label = 'Grade',
                          choices = GRADE,
-                         selected = "A")
+                         selected = "All")
              
          ))
   )

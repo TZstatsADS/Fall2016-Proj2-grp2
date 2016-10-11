@@ -19,7 +19,7 @@ r <- rest %>% group_by(DBA, ADDRESSS, year) %>% summarise(score = mean(SCORE), c
 r$name <- r$DBA
 
 bb <- right_join(r, df, by = "name")
-b <- subset(bb, !is.na(bind$score))
+b <- subset(bb, !is.na(bb$score))
 b <- subset(b, b$score >= 0)
 b <- subset(b, b$score <= 100)
 b <- subset(b, !is.na(b$year))
@@ -40,4 +40,4 @@ r_jm <- r_jm%>%
     group_by(DBA) %>%
     slice(which.max(GRADE.DATE))
 colnames(r_jm)[colnames(r_last)=='DBA'] <- 'name'
-bind_jm <- merge(r_jm, df, by = 'name')
+bind_jm <- merge(r_last, df, by = 'name')

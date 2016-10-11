@@ -7,7 +7,8 @@ library(dplyr)
 library(leaflet)
 
 #setwd('C:/Users/Jing Mu/OneDrive/Fall 2016/5243 Applied Data Science/project2/Project2')
-setwd('E:/onedrive/fall 2016/5243 Applied Data Science/project2/project2')
+#setwd('E:/onedrive/fall 2016/5243 Applied Data Science/project2/project2')
+setwd("~/GitHub/Fall2016-Proj2-grp2/Output/JingMu")
 load('rest.RData')
 
 #rest$year <- format(as.Date(rest$GRADE.DATE, format='%d/%m/%Y'),'%Y')

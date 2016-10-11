@@ -24,11 +24,13 @@ cuisine <- c(
 
 year <- unique(as.numeric(b$year))
 
+GRADE <- levels(bind$GRADE)
+
 # Define UI for application that draws a histogram
-shinyUI(fluidPage(
+shinyUI(fluidPage(navbarPage("Restaurant Violations", id="nav",
   
   # Application title
-  titlePanel("Restaurant Scores"),
+  #titlePanel("Restaurant Scores"),
   
   # Sidebar with a slider input for number of bins 
  
@@ -37,13 +39,13 @@ shinyUI(fluidPage(
 #    tabPanel("Inspection Grades",
 #      leafletOutput("map")
 #    ),
-  tabPanel("Dynamic Map",
+  tabPanel("Dynamic Map of Scores",
            div(class="outer",
                
-             # tags$head(
+             tags$head(
              #   # Include our custom CSS
-             #   includeCSS("styles.css")
-             # ),
+              includeCSS("styles.css")
+             ),
                
                leafletOutput("map"),
                
@@ -62,6 +64,23 @@ shinyUI(fluidPage(
                             helpText("Click to see dynamic crime data")
               )#
            
+  ),
+tabPanel('Dynamic Map of Grades',
+         div(class='outer',
+             tags$head(
+               includeCSS('styles.css')
+             ),
+             
+             leafletOutput('map2'),
+             
+             absolutePanel(id = 'controls', class='panel panel-default', fixed = T,
+                           draggable = T, top = 60, left = 'auto', right = 20, bottom='auto',
+                           width='auto', height = 'auto',
+                           h2('Restaurant Grades')),
+             selectInput(inputId = 'GRADE',label = 'Grade',
+                         choices = GRADE,
+                         selected = "All")
+             
+         ))
   )
-  )
-)
+))

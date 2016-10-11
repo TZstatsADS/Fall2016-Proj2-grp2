@@ -29,14 +29,14 @@ output$map <- renderLeaflet({
 
 # Filter bind data
 drawvalue <- reactive({
-  if (input$year == ''){
+ #if (input$year == ' '){
+ #  t <- filter(b, year %in% input$year)
+ #  return(t)
+ #}
+ #else{
     t <- filter(b, year %in% input$year)
     return(t)
-  }
-  else{
-    t <- filter(b, year %in% input$year)
-    return(t)
-  }})
+  })
 
 observe({
   draw <- drawvalue()
@@ -52,10 +52,50 @@ observe({
     leafletProxy("map", data = draw) %>%
       clearShapes()
   }
-
-
-
-
-
   })
+
+
+output$map2 <- renderLeaflet({
+  leaflet(bind) %>%
+    addTiles(
+      urlTemplate = "https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZnJhcG9sZW9uIiwiYSI6ImNpa3Q0cXB5bTAwMXh2Zm0zczY1YTNkd2IifQ.rjnjTyXhXymaeYG6r2pclQ",
+      attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
+    ) %>% setView(lng = -73.97, lat = 40.75, zoom = 13) 
+  
 })
+
+# Filter bind data
+drawv <- reactive({
+  if (input$GRADE == "All"){
+    k <- filter(bind, GRADE %in% input$GRADE)
+    return(k)
+  }
+  else{
+    k <- filter(bind, GRADE %in% input$GRADE)
+    return(k)
+  }})
+
+
+observe({
+  draw2 <- drawv()
+  # pal <- colorFactor(col,domain = levels(bind$GRADE))
+  
+  radius <-  50
+  if (length(draw2) > 0) {
+    leafletProxy("map2", data = draw2) %>%
+      clearShapes() %>%
+      addCircles(~long, ~lat, radius=radius,
+                 stroke=F, fillOpacity=0.8, popup=~name) 
+    
+  }
+  else {
+    leafletProxy("map2", data = draw2) %>%
+      clearShapes()
+  }
+})
+})
+
+
+
+
+#})

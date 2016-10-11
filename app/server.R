@@ -11,6 +11,7 @@ library(shiny)
 require(ggmap)
 require(maps)
 require(sp)
+require(leaflet)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -18,27 +19,43 @@ shinyServer(function(input, output) {
 
 
 output$map <- renderLeaflet({
-  leaflet() %>%
+  leaflet(b) %>%
     addTiles(
       urlTemplate = "https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZnJhcG9sZW9uIiwiYSI6ImNpa3Q0cXB5bTAwMXh2Zm0zczY1YTNkd2IifQ.rjnjTyXhXymaeYG6r2pclQ",
       attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
-    ) %>%
-    setView(lng = -73.97, lat = 40.75, zoom = 13)
+    ) %>% setView(lng = -73.97, lat = 40.75, zoom = 13) 
+  
 })
 
-# Select violation type, multiple selections are allowed
-vtype <- reactive({
-  v <- violation
-  if (input$handicap == TRUE){
-    t <- filter(t, Handicap == "Yes")
+# Filter bind data
+drawvalue <- reactive({
+  if (input$year == ''){
+    t <- filter(b, year %in% input$year)
+    return(t)
   }
-  if (input$yearround == TRUE){
-    t <- filter(t, Yearround == "Yes")
+  else{
+    t <- filter(b, year %in% input$year)
+    return(t)
+  }})
+
+observe({
+  draw <- drawvalue()
+  
+  radius <-  50
+  if (length(draw) > 0) {
+    leafletProxy("map", data = draw) %>%
+      clearShapes() %>%
+      addCircles(~long, ~lat, radius=radius,
+                 stroke=FALSE, fillOpacity=0.8, color = cols) 
   }
-  return(t)
-})
+  else {
+    leafletProxy("map", data = draw) %>%
+      clearShapes()
+  }
+
+
+
 
 
   })
-  
 })

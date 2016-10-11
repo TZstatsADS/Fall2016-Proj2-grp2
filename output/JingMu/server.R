@@ -5,12 +5,9 @@ library(scales)
 library(lattice)
 library(dplyr)
 library(data.table)
-library(plotrix)
 library(ggplot2)
-library(RColorBrewer)
 
-shinyServer(function(input, output, session){
-    col=c('darkred','yellow','red','darkseagreen')
+shinyServer(function(input, output){
     #col=c('darkred','yellow','red','darkseagreen','deepskyblue','khaki','orange')
     
     output$map <- renderLeaflet({
@@ -23,11 +20,10 @@ shinyServer(function(input, output, session){
             
     })
     
-    
     # Filter bind data
     drawvalue <- reactive({
-      if (input$GRADE == ''){
-        t <- filter(bind)
+      if (input$GRADE == "All"){
+        t <- filter(bind, GRADE %in% input$GRADE)
         return(t)
       }
       else{
@@ -38,13 +34,15 @@ shinyServer(function(input, output, session){
     
     observe({
       draw <- drawvalue()
+     # pal <- colorFactor(col,domain = levels(bind$GRADE))
       
       radius <-  50
       if (length(draw) > 0) {
         leafletProxy("map", data = draw) %>%
           clearShapes() %>%
           addCircles(~long, ~lat, radius=radius,
-                     stroke=FALSE, fillOpacity=0.8, color = cols, popup=~name) 
+                     stroke=F, fillOpacity=0.8, popup=~name) 
+        
       }
       else {
         leafletProxy("map", data = draw) %>%

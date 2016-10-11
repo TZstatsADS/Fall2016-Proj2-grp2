@@ -2,7 +2,8 @@ library(shiny)
 library(leaflet)
 library(shinythemes)
 
-GRADE <- levels(bind$GRADE)
+#GRADE <- levels(bind$GRADE)
+GRADE <- c('All','','A','B','C','Not Yet Graded','P','Z')
 
 shinyUI(fluidPage(
     titlePanel('Restaurant Grades'),
@@ -21,7 +22,7 @@ shinyUI(fluidPage(
                                h2('Restaurant Grades')),
                  selectInput(inputId = 'GRADE',label = 'Grade',
                              choices = GRADE,
-                             selected = 'Z')
+                             selected = "All")
 
                  ))
 ))

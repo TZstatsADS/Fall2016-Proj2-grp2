@@ -32,3 +32,12 @@ col_fun_score <- colorRamp(c("yellow", "red"))
 rgb_cols_score <- col_fun(b$score_pt)
 cols_score <- rgb(rgb_cols, maxColorValue = 255)
 
+######################Jing Mu
+rest$GRADE.DATE<-as.Date(rest$GRADE.DATE,format='%m/%d/%Y')
+r_jm <- subset(distinct(rest, CUISINE.DESCRIPTION,DBA, GRADE, GRADE.DATE),
+            select =c(CUISINE.DESCRIPTION, DBA, GRADE, GRADE.DATE))
+r_jm <- r_jm%>%
+    group_by(DBA) %>%
+    slice(which.max(GRADE.DATE))
+colnames(r_jm)[colnames(r_last)=='DBA'] <- 'name'
+bind_jm <- merge(r_jm, df, by = 'name')

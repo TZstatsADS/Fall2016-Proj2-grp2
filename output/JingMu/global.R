@@ -24,9 +24,9 @@ r_last <- r%>%
     slice(which.max(GRADE.DATE))
 colnames(r_last)[colnames(r_last)=='DBA'] <- 'name'
 
-load('sub2.RData')
-bind <- merge(r_last, sub2, by = 'name')
-bind$GRADE = droplevels(bind$GRADE)
+load('sub.RData')
+bind <- merge(r_last, sub, by = 'name')
+#bind$GRADE = droplevels(bind$GRADE)
 #levels(bind$GRADE) = delevels('',bind$GRADE)
 #bind$GRADE[bind$GRADE=='']=NA
 #bind <- bind[na.omit(bind$GRADE),]

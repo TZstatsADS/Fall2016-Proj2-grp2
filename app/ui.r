@@ -24,8 +24,6 @@ cuisine <- c(
 
 year <- unique(as.numeric(b$year))
 
-score_bucket <- unique(b$score_bucket)
-
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
   
@@ -42,10 +40,10 @@ shinyUI(fluidPage(
   tabPanel("Dynamic Map",
            div(class="outer",
                
-               tags$head(
-                 # Include our custom CSS
-                 includeCSS("styles.css")
-               ),
+             # tags$head(
+             #   # Include our custom CSS
+             #   includeCSS("styles.css")
+             # ),
                
                leafletOutput("map"),
                

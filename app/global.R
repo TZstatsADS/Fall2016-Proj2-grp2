@@ -10,13 +10,15 @@ load(file = "rest.Rdata")
 #rest <-na.omit(rest)
 
 rest$year <- format(as.Date(rest$INSPECTION.DATE, format="%d/%m/%Y"),"%Y")
-r <- rest %>% group_by(DBA, year) %>% summarise(score = mean(SCORE), cuisine = first(CUISINE.DESCRIPTION))
+
 
 rest$ADDRESSS <- paste(as.character(rest$BUILDING), as.character(rest$STREET), as.character(rest$ZIPCODE), sep = " ")
-restaurant <- rest %>% group_by(ADDRESSS) %>% summarise(DBA = first(DBA))
+r <- rest %>% group_by(DBA, ADDRESSS, year) %>% summarise(score = mean(SCORE), cuisine = first(CUISINE.DESCRIPTION))
+
+#restaurant <- rest %>% group_by(ADDRESSS, DBA) %>% summarise(name = DBA)
 r$name <- r$DBA
 
-bb <- right_join(r, subs, by = "name")
+bb <- right_join(r, df, by = "name")
 b <- subset(bb, !is.na(bind$score))
 b <- subset(b, b$score >= 0)
 b <- subset(b, b$score <= 100)

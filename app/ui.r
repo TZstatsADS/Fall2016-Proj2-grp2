@@ -56,8 +56,7 @@ shinyUI(fluidPage(
                             
                             h2("Restaurant Scores"),
                             
-                            #selectInput("cuisine", "Show Just One Cuisine", cuisine, selected = "")
-                        #selectInput("score_bucket","Percentile of Scores", score_bucket, selected = "10"),
+                          
                             # Simple integer interval
                                           sliderInput(inputId="year", label="Filter Years", min=min(year), max=max(year),
                            value=c(min(year), max(year)), step=1),

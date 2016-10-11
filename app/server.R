@@ -46,7 +46,7 @@ observe({
     leafletProxy("map", data = draw) %>%
       clearShapes() %>%
       addCircles(~long, ~lat, radius=radius,
-                 stroke=FALSE, fillOpacity=0.8, color = cols_fun) 
+                 stroke=FALSE, fillOpacity=0.8, color = cols_score) 
   }
   else {
     leafletProxy("map", data = draw) %>%

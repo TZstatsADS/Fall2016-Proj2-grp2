@@ -17,6 +17,23 @@ df$year = as.numeric(df$year)
 df$year<-df$year+2000
 df$BORO<-as.character(df$BORO)
 
+df$VIOLATION.DESCRIPTION <- NA
+df$VIOLATION.DESCRIPTION[which(df$VIOLATION.CODE=="2")]<- "02-Food Temperature"
+df$VIOLATION.DESCRIPTION[which(df$VIOLATION.CODE=="3")]<- "03-Food Source"
+df$VIOLATION.DESCRIPTION[which(df$VIOLATION.CODE=="4")]<- "04-Food Protection"
+df$VIOLATION.DESCRIPTION[which(df$VIOLATION.CODE=="5")]<- "05-Working Environment Safety"
+df$VIOLATION.DESCRIPTION[which(df$VIOLATION.CODE=="6")]<- "06-Workers Cleanliness"
+df$VIOLATION.DESCRIPTION[which(df$VIOLATION.CODE=="7")]<- "07-Duties of Officer"
+df$VIOLATION.DESCRIPTION[which(df$VIOLATION.CODE=="8")]<- "08-Facility Issues"
+df$VIOLATION.DESCRIPTION[which(df$VIOLATION.CODE=="9")]<- "09-Food Storage"
+df$VIOLATION.DESCRIPTION[which(df$VIOLATION.CODE=="10")]<- "10-Utility Issues"
+df$VIOLATION.DESCRIPTION[which(df$VIOLATION.CODE=="15")]<- "15-Tabacco Issues"
+df$VIOLATION.DESCRIPTION[which(df$VIOLATION.CODE=="16")]<- "16-Food Nuitrition/Calories"
+df$VIOLATION.DESCRIPTION[which(df$VIOLATION.CODE=="18")]<- "18-Documents Not Present"
+df$VIOLATION.DESCRIPTION[which(df$VIOLATION.CODE=="20")]<- "20-Information Not Posted"
+df$VIOLATION.DESCRIPTION[which(df$VIOLATION.CODE=="22")]<- "22-Facility Issues 2"
+df$VIOLATION.DESCRIPTION[which(df$VIOLATION.CODE=="99")]<- "99-Other General Violation"
+
 df_man<-df[which(df$BORO=="MANHATTAN"),]
 df_brok<-df[which(df$BORO=="BROOKLYN"),]
 df_bronx<-df[which(df$BORO=="BRONX"),]
@@ -29,8 +46,9 @@ brok<-df_brok
 bronx<-df_bronx
 queens<-df_queens
 staten<-df_staten
+
 #data sets for heatmap
-hm = c("VIOLATION.CODE", "month","SCORE")
+hm = c("VIOLATION.CODE", "VIOLATION.DESCRIPTION","month","SCORE")
 hm_man <- df_man[hm]
 hm_brok <- df_brok[hm]
 hm_bronx <- df_bronx[hm]
@@ -43,53 +61,4 @@ hm_brok$SCORE = 1
 hm_bronx$SCORE = 1
 hm_staten$SCORE = 1
 hm_queens$SCORE = 1
-sub_df <- cast(hm_df, VIOLATION.CODE~month, sum)
-#submatr <- sub_df[,2:13]
-#submatr <- replace(submatr, is.na(submatr),0)
-sub_man <- cast(hm_man, VIOLATION.CODE~month, sum)
-sub_brok <- cast(hm_brok, VIOLATION.CODE~month, sum)
-sub_bronx <- cast(hm_bronx, VIOLATION.CODE~month, sum)
-sub_staten <- cast(hm_staten, VIOLATION.CODE~month, sum)
-sub_queens <- cast(hm_queens, VIOLATION.CODE~month, sum)
 
-
-#overall
-rownames(sub_df) <- sub_df[,4]                  
-# assign row names
-sub_df_1 = as.matrix(sub_df)
-#heamp_1 = heatmap(sub_df_1,Rowv =NA, Colv=NA, col=cm.colors(256),scale = "column",margins=c(5,10))
-
-#manhattan
-rownames(sub_man) <- sub_man[,4]                  
-# assign row names
-sub_man_1 = as.matrix(sub_man)
-#heamp_man = heatmap(sub_man_1,Rowv =NA, Colv=NA, col=cm.colors(256),scale = "column",margins=c(5,10))
-
-#brooklyn
-rownames(sub_brok) <- sub_brok[,4]                  
-# assign row names
-sub_brok_1 = as.matrix(sub_brok)
-#heamp_brok = heatmap(sub_brok_1,Rowv =NA, Colv=NA, col=cm.colors(256),scale = "column",margins=c(5,10))
-
-#bronx
-rownames(sub_bronx) <- sub_bronx[,4]                  
-# assign row names
-sub_bronx_1 = as.matrix(sub_bronx)
-#heamp_brok = heatmap(sub_bronx_1,Rowv =NA, Colv=NA, col=cm.colors(256),scale = "column",margins=c(5,10))
-
-#staten island
-rownames(sub_staten) <- sub_staten[,4]                  
-# assign row names
-sub_staten_1 = as.matrix(sub_staten)
-#heamp_staten = heatmap(sub_staten_1,Rowv =NA, Colv=NA, col=cm.colors(256),scale = "column",margins=c(5,10))
-
-#queens
-rownames(sub_queens) <- sub_queens[,4]                  
-# assign row names
-sub_queens_1 = as.matrix(sub_queens)
-#heamp_queens = heatmap(sub_queens_1,Rowv =NA, Colv=NA, col=cm.colors(256),scale = "column",margins=c(5,10))
-
-
-
-#ggplot(df[which(df$BORO=="MANHATTAN"),],aes(x = factor(new.date), y = SCORE))+stat_summary(fun.y = "mean",geom = "bar")
-#ggplotly(ggplot(df[which(df$BORO=="MANHATTAN"),],aes(x = factor(new.date), y = SCORE))+stat_summary(fun.y = "mean",geom = "bar"))

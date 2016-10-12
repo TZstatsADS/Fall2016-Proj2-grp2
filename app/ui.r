@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+library(leaflet)
 
 # Choices for drop-downs
 cuisine <- c(
@@ -50,9 +51,9 @@ shinyUI(fluidPage(navbarPage("Restaurant Violations", id="nav",
                           
                             # Simple integer interval
                                           sliderInput(inputId="year", label="Filter Years", min=min(year), max=max(year),
-                           value=c(min(year), max(year)), step=1),
+                           value=2015, step=1),
                                       animate=animationOptions(interval = 500)),
-                            helpText("Click to see dynamic crime data")
+                            helpText("Representation of average score by year. Note, restaurants that receive a low grade are inspected more often.")
               )#
            
   ),

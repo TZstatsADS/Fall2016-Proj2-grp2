@@ -14,7 +14,7 @@ Summary: New York restaurants are inspected throughout the year and they are giv
 
 [Contribution Statement]:  All team members contributed equally in all stages of this project. 
 
-Yixin Sun and Yifei Hu work on statistical analysis with scores detection for bar plot and heatmaps
+Yixin Sun and Yifei Hu work on statistical analysis with histogram scores detection and heatmap of relationships of cusine types and violations.
 Han Cui works on violation map plotting which in "Dynamic Map of Violation" page and present our project in class.
 Jing Mu works on Grade Map Plotting which in "Dynamic Map of Grades" page.
 Erica Kilbride works on Heat map with scores in "Dynamic Map of Scores" page.

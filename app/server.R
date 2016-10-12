@@ -85,7 +85,7 @@ observe({
     leafletProxy("map2", data = draw2) %>%
       clearShapes() %>%
       addCircles(~long, ~lat, radius=radius,
-                 stroke=F, fillOpacity=0.8, popup=~name) 
+                 stroke=F, fillOpacity=0.8, popup=first(draw2$name)) 
     
   }
   else {

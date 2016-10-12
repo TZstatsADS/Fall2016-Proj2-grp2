@@ -92,19 +92,46 @@ queens<-df_queens
 staten<-df_staten
 
 #data sets for heatmap
-hm = c("VIOLATION.CODE", "VIOLATION.DESCRIPTION","month","SCORE")
-hm_man <- df_man[hm]
-hm_brok <- df_brok[hm]
-hm_bronx <- df_bronx[hm]
-hm_queens <- df_queens[hm]
-hm_staten <- df_staten[hm]
-hm_df <- df[hm]
-hm_df$SCORE = 1
-hm_man$SCORE = 1
-hm_brok$SCORE = 1
-hm_bronx$SCORE = 1
-hm_staten$SCORE = 1
-hm_queens$SCORE = 1
+# hm = c("VIOLATION.CODE", "VIOLATION.DESCRIPTION","month","SCORE")
+# hm_man <- df_man[hm]
+# hm_brok <- df_brok[hm]
+# hm_bronx <- df_bronx[hm]
+# hm_queens <- df_queens[hm]
+# hm_staten <- df_staten[hm]
+# hm_df <- df[hm]
+# hm_df$SCORE = 1
+# hm_man$SCORE = 1
+# hm_brok$SCORE = 1
+# hm_bronx$SCORE = 1
+# hm_staten$SCORE = 1
+# hm_queens$SCORE = 1
+temp <- subset(finaldata, select = c('CUISINE.DESCRIPTION','VIOLATION.CODE'))
+temp <- na.omit(temp)
+temp <- subset(finaldata, select = c('CUISINE.DESCRIPTION','BORO','VIOLATION.CODE'))
+temp <- subset(finaldata, select = c('CUISINE.DESCRIPTION','VIOLATION.CODE'))
+temp$VIOLATION.CODE <- apply(matrix(as.character(temp$VIOLATION.CODE)),1,
+                             function(x) substring(x,1,2))
+temp$VIOLATION.CODE <- as.factor(temp$VIOLATION.CODE)
+temp2 <- temp%>%group_by(CUISINE.DESCRIPTION,VIOLATION.CODE)%>%summarize(count=n())
+temp3 <- temp2 %>% group_by(VIOLATION.CODE)%>% summarize(violation_count = sum(count))
+temp4 <- left_join(temp2, temp3, by = 'VIOLATION.CODE')
+temp4$percentage <- temp4$count / temp4$violation_count *100
+
+rt <- restaurant %>%
+  group_by(CUISINE.DESCRIPTION) %>%
+  summarise( x= n())
+
+temp5 <- rt
+temp5$restaurants <- temp5$x
+temp5$total <- sum(temp5$restaurants)
+temp5$rest_p <- temp5$restaurants / temp5$total
+
+
+
+temp6 <- left_join(temp4,temp5)
+temp6 <- na.omit(temp6)
+temp6 <- filter(temp6, VIOLATION.CODE != " ")
+temp6 <- filter(temp6, CUISINE.DESCRIPTION != " ")
 ##################
 mydata <- subset(finaldata, select = c(VIOLATION.CODE, lat, long))
 mydata <- na.omit(mydata)
@@ -112,3 +139,21 @@ mydata$VIOLATION.CODE <- apply(matrix(as.character(mydata$VIOLATION.CODE)),1,
                            function(x) substring(x,1,2))
 mydata$VIOLATION.CODE <- as.numeric(mydata$VIOLATION.CODE)
 mydata <- na.omit(mydata)
+
+vio_type <- c('Food not cooked to required minimum temperature',
+              'Food from unapproved or unknown source',
+              'Toxic chemical improperly labeled, stored or used',
+              'Sewage disposal system improper or unapproved',
+              'Personal cleanliness inadequate',
+              'Duties of an officer of the Department interfered with or obstructed',
+              'Facility not vermin proof',
+              'Food contact surface not properly maintained',
+              'Plumbing not properly installed or maintained',
+              'No Smoking and/or Smoking Permitted sign not conspicuously posted',
+              'A food containing artificial trans fat, with 0.5 grams or more',
+              'Permit not conspicuously displayed',
+              'Food allergy information poster not posted in languages',
+              'Toilet facility used by women does not have at least one covered garbage receptacle',
+              'Other General Violation')
+names(vio_type) <- c('2','3','4','5','6','7','8','9','10','15','16','18','20',
+                     '22','99')

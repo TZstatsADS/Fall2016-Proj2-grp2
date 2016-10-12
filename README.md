@@ -5,6 +5,7 @@ Term: Fall 2016
 
 + Team #2
 + Projec title: Inspection of Restaurants in NYC
++ Link: https://elk2142.shinyapps.io/Pro-2_Group-2/
 + Team members
 	+ team member 1: Han Cui
 	+ team member 2: Jing Mu

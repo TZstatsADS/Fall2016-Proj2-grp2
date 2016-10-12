@@ -1,6 +1,6 @@
 library(shiny)
 
-###########################
+###########################Erica
 shinyServer(function(input, output) {
   
   output$map <- renderLeaflet({
@@ -38,7 +38,7 @@ shinyServer(function(input, output) {
         clearShapes()
     }
   })
-#####################################
+#####################################Jing
   output$map2 <- renderLeaflet({
     leaflet() %>%
       addTiles(
@@ -49,35 +49,77 @@ shinyServer(function(input, output) {
 
   # Filter bind data
   drawv <- reactive({
-    # if (input$GRADE == "All"){
-    #   k <- bind_jm
-    #   return(k)
-    # }
-    # else{
+    if (input$GRADE == ""){
+      k <- bind_jm
+      return(k)
+    }
+    else{
       k <- subset(bind_jm, GRADE == input$GRADE)
       return(k)
-    #}
+    }
     })
 
 
   observe({
+    colorBy1 <- 'GRADE'
     draw2 <- drawv()
     # pal <- colorFactor(col,domain = levels(bind$GRADE))
+    colorData1 <- draw2[[colorBy1]]
+    
+    pal <- colorFactor("Set1", colorData1)
 
-    radius <-  50
-    if (length(draw2) > 0) {
+    radius2 <-  30
+   # if (length(draw2) > 0) {
       leafletProxy("map2", data = draw2) %>%
         clearShapes() %>%
-        addCircles(lng=draw2$long, lat=draw2$lat, radius=radius,
-                   stroke=F, fillOpacity=0.8, popup=draw2$GRADE)
+        hideGroup('Cluster') %>%
+        addCircles(~long, ~lat, radius=radius2,
+                   stroke=F, fillOpacity=0.8, fillColor=pal(colorData1))
 
-    }
-    else {
-      leafletProxy("map2", data = draw2) %>%
-        clearShapes()
-    }
+    #}
+    #else {
+    #  leafletProxy("map2", data = draw2) %>%
+    #    clearShapes()
+    #}
   })
-###################  
+################### Han
+  output$map3 <- renderLeaflet({
+    leaflet() %>%
+      addTiles(
+        urlTemplate = "//{s}.tiles.mapbox.com/v3/jcheng.map-5ebohr46/{z}/{x}/{y}.png",
+        attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
+      ) %>%
+      setView(lng = -73.97, lat = 40.75, zoom = 13)
+  })
+  
+  # Choose just one vehicle
+  drawvalue1 <- reactive({if (input$type == ''){return(mydata)}else{
+    t <- subset(mydata, VIOLATION.CODE == input$type)
+    return(t)
+  }})
+  
+  
+  observe({
+    colorBy <- 'VIOLATION.CODE' #input$type #mydata$
+    draw1 <- drawvalue1()
+    
+    colorData <- draw1[[colorBy]]
+    
+    pal1 <- colorFactor("Set1", colorData)
+    
+    radius1 <- 30
+    
+    leafletProxy("map3", data = draw1) %>%
+      clearShapes() %>%
+      hideGroup('Cluster') %>%
+      addCircles(~long, ~lat, radius=radius1, 
+                 stroke=FALSE, fillOpacity=0.8, fillColor=pal1(colorData)) #%>%
+      #addLegend("bottomleft", pal=pal1, values=colorData, title=colorBy,
+                #layerId="colorLegend")
+    
+  })
+  
+###################Yifei & Yixin
   output$scater_plot<-renderPlot({
       if (input$BORO=="New York")
       {

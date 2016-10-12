@@ -1,10 +1,10 @@
 library(ggmap)
 library(maps)
-library(sp)
-library(plyr)
+#library(sp)
+#library(plyr)
 library(dplyr)
 library(leaflet)
-library(ggplot2)
+#library(ggplot2)
 
 setwd('E:/onedrive/fall 2016/5243 Applied Data Science/project2/Final')
 #setwd('C:/Users/Jing Mu/onedrive/fall 2016/5243 Applied Data Science/project2/Final')
@@ -105,3 +105,10 @@ hm_brok$SCORE = 1
 hm_bronx$SCORE = 1
 hm_staten$SCORE = 1
 hm_queens$SCORE = 1
+##################
+mydata <- subset(finaldata, select = c(VIOLATION.CODE, lat, long))
+mydata <- na.omit(mydata)
+mydata$VIOLATION.CODE <- apply(matrix(as.character(mydata$VIOLATION.CODE)),1,
+                           function(x) substring(x,1,2))
+mydata$VIOLATION.CODE <- as.numeric(mydata$VIOLATION.CODE)
+mydata <- na.omit(mydata)

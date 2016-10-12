@@ -16,7 +16,26 @@ cuisine <- c(
 
 year <- unique(as.numeric(b$INSPECTION.YEAR))
 
-GRADE <- c("Not Yet Graded" ,"A", "B", "C", "Z")
+GRADE <- c("Not Yet Graded" ,"A", "B", "C","P", "Z")
+
+vars1 <- c(
+  'All type' = '',
+  'Food Temperature' = 2,
+  'Food Source' = 3,
+  'Food Protection' = 4,
+  'Working Environment Safety' = 5,
+  'Workers Cleanliness' = 6,
+  'Duties of Officer' = 7,
+  'Facility Issues' = 8,
+  'Food Storage' = 9,
+  'Utility Issues' = 10,
+  'Tabacco Issues' = 15,
+  'Food Nuitrition/Calories' = 16,
+  'Documents Not Present' = 18,
+  'Information Not Posted' = 20,
+  'Facility Issues 2' = 22,
+  'Other General Violation' = 99
+)
 
 BORO <- c('New York','Manhattan','Brooklyn','Bronx','Staten Island', 'Queens')
 
@@ -32,7 +51,7 @@ shinyUI(fluidPage(navbarPage("Restaurant Violations", id="nav",
                                             includeCSS("styles.css")
                                           ),
 
-                                          leafletOutput("map"),
+                                          leafletOutput("map",width='100%', height='100%'),
 
                                           # Shiny versions prior to 0.11 should use class="modal" instead.
                                           absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
@@ -53,20 +72,47 @@ shinyUI(fluidPage(navbarPage("Restaurant Violations", id="nav",
                              tabPanel('Dynamic Map of Grades',
                                       div(class='outer',
                                           tags$head(
-                                            includeCSS('styles.css')
+                                            includeCSS('styles.css'),
+                                            includeScript('gomap.js')
                                           ),
 
-                                          leafletOutput('map2'),
+                                          leafletOutput('map2',width='100%', height='100%'),
 
                                           absolutePanel(id = 'controls', class='panel panel-default', fixed = T,
                                                         draggable = T, top = 60, left = 'auto', right = 20, bottom='auto',
-                                                        width='auto', height = 'auto',
-                                                        h2('Restaurant Grades')),
-                                          selectInput(inputId = 'GRADE',label = 'Grade',
-                                                      choices = GRADE,
-                                                      selected = "A")
+                                                        width=330, height = 'auto',
+                                                        h2('Restaurant Grades'),
+                                                        selectInput('GRADE','Restaurant Grades', GRADE))
 
                                       )),
+                             ############################
+                             tabPanel('Dynamic Map of Violation',
+                                      div(class='outer',
+                                          
+                                          tags$head(
+                                            #includeCSS('~/Desktop/ADS/project2/finalapp/styles.css'),
+                                            #includeScript('~/Desktop/ADS/project2/finalapp/gomap.js')),
+                                            includeCSS('styles.css'),
+                                            includeScript('gomap.js')),
+                                          
+                                          leafletOutput('map3', width='100%', height='100%'),
+                                          # Shiny versions prior to 0.11 should use class='modal' instead.
+                                          
+                                          absolutePanel(id = 'controls', class = 'panel panel-default', fixed = TRUE,
+                                                        draggable = TRUE, top = 60, left = 'auto', right = 20, bottom = 'auto',
+                                                        width = 330, height = 'auto', h2('Violation Type'),
+                                                        
+                                                        #radioButtons("color", "violation", vars, selected = 'Violation Type'),
+                                                        
+                                                        #sliderInput('date', 'Animation duration', min = as.Date('2015-01-01'),
+                                                        #            max = as.Date('2015-12-31'), value = as.Date('2015-06-30'), 
+                                                        #            step = 1,format='## Days'),
+                                                        
+                                                        
+                                                        selectInput('type', 'Violation Type', vars1)
+                                                        # radioButtons("color", "Violation Type", vars, selected = '')
+                                          ))
+                             ),
                              ############################
                              tabPanel("Scores Detection",
                                       sidebarLayout(

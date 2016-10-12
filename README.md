@@ -3,16 +3,16 @@
 
 Term: Fall 2016
 
-+ Team #
-+ Projec title: Lorem ipsum dolor sit amet
++ Team #2
++ Projec title: Inspection of Restaurants in NYC
 + Team members
 	+ team member 1: Han Cui
 	+ team member 2: Jing Mu
 	+ team member 3: Erica Kilbride
 	+ team member 4: Yixin Sun
-	+ team member 5
+	+ team member 5: Yifei Hu
 	
-+ Project summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
++ Project summary: New York restaurants are inspected throughout the year and they are given grades and scores due to the violation types. We develop the shiny app from the inspectors' perspective. The three maps are designed to help them gather information, design insepction route, etc. The two graphs illustrate the relationship between violation code and months of the year.
 
 In this second project of Applied Data Science, we will carry out *Exploratory Data Analysis and Visualization* via a shiny app on a topic about open data released from the [New York City open data portal](https://nycopendata.socrata.com/). See [Project 2 Description](doc/project2_desc.md) for more details.  
 

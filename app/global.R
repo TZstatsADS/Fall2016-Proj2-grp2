@@ -31,13 +31,3 @@ b$score_pt <- (b$score/max(b$score))
 col_fun_score <- colorRamp(c("yellow", "red"))
 rgb_cols_score <- col_fun_score(b$score_pt)
 cols_score <- rgb(rgb_cols_score, maxColorValue = 255)
-
-######################Jing Mu
-rest$GRADE.DATE<-as.Date(rest$GRADE.DATE,format='%m/%d/%Y')
-r_jm <- subset(distinct(rest, CUISINE.DESCRIPTION,DBA, GRADE, GRADE.DATE),
-            select =c(CUISINE.DESCRIPTION, DBA, GRADE, GRADE.DATE))
-r_jm <- r_jm%>%
-    group_by(DBA) %>%
-    slice(which.max(GRADE.DATE))
-r_jm$name <- r_jm$DBA
-bind_jm <- merge(r_jm, df, by = 'name')

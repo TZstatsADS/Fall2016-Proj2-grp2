@@ -142,7 +142,7 @@ shinyUI(fluidPage(navbarPage("Restaurant Violations", id="nav",
                              tabPanel("Relationship of Cuisine Types and Violations",
                                       
                                       mainPanel(
-                                        plotOutput("heat_plot", width='90%',height='90%')
+                                        plotOutput("heat_plot")
                                       )
                                       )
 )

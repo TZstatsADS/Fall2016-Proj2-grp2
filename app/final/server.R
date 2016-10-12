@@ -9,9 +9,9 @@ shinyServer(function(input, output) {
         urlTemplate = "https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZnJhcG9sZW9uIiwiYSI6ImNpa3Q0cXB5bTAwMXh2Zm0zczY1YTNkd2IifQ.rjnjTyXhXymaeYG6r2pclQ",
         attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
       ) %>% setView(lng = -73.97, lat = 40.75, zoom = 13)
-
+    
   })
-
+  
   # Filter bind data
   drawvalue <- reactive({
     #if (input$year == ' '){
@@ -22,10 +22,10 @@ shinyServer(function(input, output) {
     t <- subset(b, INSPECTION.YEAR == input$year)
     return(t)
   })
-
+  
   observe({
     draw <- drawvalue()
-
+    
     radius <-  50
     if (length(draw) > 0) {
       leafletProxy("map", data = draw) %>%
@@ -38,7 +38,7 @@ shinyServer(function(input, output) {
         clearShapes()
     }
   })
-#####################################Jing
+  #####################################Jing
   output$map2 <- renderLeaflet({
     leaflet() %>%
       addTiles(
@@ -46,7 +46,7 @@ shinyServer(function(input, output) {
         attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
       ) %>% setView(lng = -73.97, lat = 40.75, zoom = 13)
   })
-
+  
   # Filter bind data
   drawv <- reactive({
     if (input$GRADE == ""){
@@ -57,9 +57,9 @@ shinyServer(function(input, output) {
       k <- subset(bind_jm, GRADE == input$GRADE)
       return(k)
     }
-    })
-
-
+  })
+  
+  
   observe({
     colorBy1 <- 'GRADE'
     draw2 <- drawv()
@@ -67,22 +67,22 @@ shinyServer(function(input, output) {
     colorData1 <- draw2[[colorBy1]]
     
     pal <- colorFactor("Set1", colorData1)
-
+    
     radius2 <-  40
-   # if (length(draw2) > 0) {
-      leafletProxy("map2", data = draw2) %>%
-        clearShapes() %>%
-        hideGroup('Cluster') %>%
-        addCircles(~long, ~lat, radius=radius2,
-                   stroke=F, fillOpacity=0.8, fillColor=pal(colorData1))
-
+    # if (length(draw2) > 0) {
+    leafletProxy("map2", data = draw2) %>%
+      clearShapes() %>%
+      hideGroup('Cluster') %>%
+      addCircles(~long, ~lat, radius=radius2,
+                 stroke=F, fillOpacity=0.8, fillColor=pal(colorData1))
+    
     #}
     #else {
     #  leafletProxy("map2", data = draw2) %>%
     #    clearShapes()
     #}
   })
-################### Han
+  ################### Han
   output$map3 <- renderLeaflet({
     leaflet() %>%
       addTiles(
@@ -120,60 +120,65 @@ shinyServer(function(input, output) {
     
   })
   
-###################Yifei & Yixin
+  ###################Yifei & Yixin
   output$scater_plot<-renderPlot({
-      if (input$BORO=="New York")
-      {
-          new_york$month<-factor(new_york$month)
-          ggplot(new_york,aes(x = month, y = SCORE,fill=month))+stat_summary(fun.y = "mean",geom = "bar")+coord_cartesian(ylim=c(15,23))+ylab("score")
-
-      }
-      else if (input$BORO=="Manhattan"){
-          man$month<-factor(man$month)
-          ggplot(man,aes(x = month, y = SCORE,fill=month))+stat_summary(fun.y = "mean",geom = "bar")+coord_cartesian(ylim=c(15,23))+ylab("score")
-
-      }
-      else if (input$BORO=="Bronx"){
-          bronx$month<-factor(bronx$month)
-          ggplot(bronx,aes(x = month, y = SCORE,fill=month))+stat_summary(fun.y = "mean",geom = "bar")+coord_cartesian(ylim=c(15,23))+ylab("score")
-
-      }
-      else if (input$BORO=="Staten Island"){
-          staten$month<-factor(staten$month)
-          ggplot(staten,aes(x = month, y = SCORE,fill=month))+stat_summary(fun.y = "mean",geom = "bar")+coord_cartesian(ylim=c(15,23))+ylab("score")
-
-      }
-      else if (input$BORO=="Queens"){
-          queens$month<-factor(queens$month)
-          ggplot(queens,aes(x = month, y = SCORE,fill=month))+stat_summary(fun.y = "mean",geom = "bar")+coord_cartesian(ylim=c(15,23))+ylab("score")
-
-      }
-      else if (input$BORO=="Brooklyn"){
-          brok$month<-factor(brok$month)
-          ggplot(brok,aes(x = month, y = SCORE,fill=month))+stat_summary(fun.y = "mean",geom = "bar")+coord_cartesian(ylim=c(15,23))+ylab("score")
-
-      }
+    if (input$BORO=="New York")
+    {
+      new_york$month<-factor(new_york$month)
+      ggplot(new_york,aes(x = month, y = SCORE,fill=month))+stat_summary(fun.y = "mean",geom = "bar")+coord_cartesian(ylim=c(15,23))+ylab("score")
+      
+    }
+    else if (input$BORO=="Manhattan"){
+      man$month<-factor(man$month)
+      ggplot(man,aes(x = month, y = SCORE,fill=month))+stat_summary(fun.y = "mean",geom = "bar")+coord_cartesian(ylim=c(15,23))+ylab("score")
+      
+    }
+    else if (input$BORO=="Bronx"){
+      bronx$month<-factor(bronx$month)
+      ggplot(bronx,aes(x = month, y = SCORE,fill=month))+stat_summary(fun.y = "mean",geom = "bar")+coord_cartesian(ylim=c(15,23))+ylab("score")
+      
+    }
+    else if (input$BORO=="Staten Island"){
+      staten$month<-factor(staten$month)
+      ggplot(staten,aes(x = month, y = SCORE,fill=month))+stat_summary(fun.y = "mean",geom = "bar")+coord_cartesian(ylim=c(15,23))+ylab("score")
+      
+    }
+    else if (input$BORO=="Queens"){
+      queens$month<-factor(queens$month)
+      ggplot(queens,aes(x = month, y = SCORE,fill=month))+stat_summary(fun.y = "mean",geom = "bar")+coord_cartesian(ylim=c(15,23))+ylab("score")
+      
+    }
+    else if (input$BORO=="Brooklyn"){
+      brok$month<-factor(brok$month)
+      ggplot(brok,aes(x = month, y = SCORE,fill=month))+stat_summary(fun.y = "mean",geom = "bar")+coord_cartesian(ylim=c(15,23))+ylab("score")
+      
+    }
   })
   output$heat_plot<-renderPlot({
-      if (input$BORO=="New York")
-      {
-          ggplot(hm_df,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
-
-      }
-      else if (input$BORO=="Manhattan"){
-          ggplot(hm_man,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
-      }
-      else if (input$BORO=="Bronx"){
-          ggplot(hm_bronx,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
-      }
-      else if (input$BORO=="Staten Island"){
-          ggplot(hm_staten,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
-      }
-      else if (input$BORO=="Queens"){
-          ggplot(hm_queens,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
-      }
-      else if (input$BORO=="Brooklyn"){
-          ggplot(hm_brok,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
-      }
+    # if (input$BORO=="New York")
+    # {
+    #     ggplot(hm_df,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
+    # 
+    # }
+    # else if (input$BORO=="Manhattan"){
+    #     ggplot(hm_man,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
+    # }
+    # else if (input$BORO=="Bronx"){
+    #     ggplot(hm_bronx,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
+    # }
+    # else if (input$BORO=="Staten Island"){
+    #     ggplot(hm_staten,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
+    # }
+    # else if (input$BORO=="Queens"){
+    #     ggplot(hm_queens,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
+    # }
+    # else if (input$BORO=="Brooklyn"){
+    #     ggplot(hm_brok,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
+    # }
+    ggplot(temp6,aes(as.factor(VIOLATION.CODE),as.factor(CUISINE.DESCRIPTION))) + 
+      stat_sum(aes(group = percentage, colour = VIOLATION.CODE,weight=1/rest_p),geom = "point", position = position_jitter(width = 0.0, height = 0.0))  +
+      scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+
+      xlab("Violation Code")+ylab("Cuisine Type") + theme(axis.text = element_text(size = 6))
   })
 })
+

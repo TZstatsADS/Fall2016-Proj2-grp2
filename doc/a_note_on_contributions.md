@@ -1,20 +1,22 @@
-### A Note on Contributions
+Project #2  Inspection of Restaurants in NYC
 
-Whenever we have team projects, there are always concerns on unequal contributions from members of a project team. In the ideal world, we are all here to put in our best efforts and learn together. Even in that ideal world, we have different skill sets and preparations, and we will still contribute differently to a project. 
+Team #2
 
-Therefore, you are required to post a *contribution statement* in the root README.md of your GitHub repo. Please beware that your GitHub repo will become public and remain public after the due date of the projects. 
+Team members: 
+team member 1: Han Cui
+team member 2: Jing Mu
+team member 3: Erica Kilbride
+team member 4: Yixin Sun
+team member 5: Yifei Hu
 
-Post your title, team members, project abstract and a contribution statement in the README.md file.  This is a common practice for research scientific journals. 
+Summary: New York restaurants are inspected throughout the year and they are given grades and scores due to the violation types. We develop the shiny app from the inspectors' perspective. The three maps are designed to help them gather information, design insepction route, etc. The two graphs illustrate the relationship between violation code and months of the year.
 
-Below is an example. If no contribution statement is provided, we will insert a default statement that goes "**All team members contributed equally in all stages of this project. All team members approve our work presented in this GitHub repository including this contributions statement**. "
 
----
-Sample project README statement.
+[Contribution Statement]:  All team members contributed equally in all stages of this project. 
 
-Project xxx
+Yixin Sun and Yifei Hu work on statistical analysis with scores detection for bar plot and heatmaps
+Han Cui works on violation map plotting which in "Dynamic Map of Violation" page and present our project in class.
+Jing Mu works on Grade Map Plotting which in "Dynamic Map of Grades" page.
+Erica Kilbride works on Heat map with scores in "Dynamic Map of Scores" page.
 
-Team members: Avi Bond, Comma Deed, En Funn, Gem Hon
 
-Summary: In this project, we developed a new method and improved the classification accuracy for images of cats and dogs to 99.9%
-
-[Contribution Statement] AB, CD, EF and GH designed the study. AB and CD developed baseline classification model for evaluation. EF and GH explored feature engineering for improving the baseline model. AB, EF and GH discussed and designed the model evaluation protocol. CD carried out the computation for model evaluation. All team members contributed to the GitHub repository and prepared the presentation. All team members approve our work presented in our GitHub repository including this contribution statement.

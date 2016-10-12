@@ -32,6 +32,32 @@ col_fun_score <- colorRamp(c("yellow", "red"))
 rgb_cols_score <- col_fun_score(b$score_pt)
 cols_score <- rgb(rgb_cols_score, maxColorValue = 255)
 
+
+
+cuisine <- c("American", "Asian", "Bakery", "Fast_Food", "Middle_Eastern")
+regexes <- list(c("(American|Barbecue|Tex-Mex|Californian)","American"),
+                c("(Asian|Chinese|Vietnames
+                  Cambodian|Vietnamese|Thai|Indonesian|Indian|Filipino)","Asian"),
+                c("(Donald|Trump|DonaldTrump)","Bakery"),
+                c("(Hamburgers|Hotdogs|Sandwich|Pizza|Soup|Salad)","Fast_Food"),
+                c("(Iranian|Armenian|Afghan|HRC|Pakistani)","Middle_Eastern"),
+                c("(Czech|European|English|French|German|Greek|Irish|Mediterranean|Moroccan|Italian|Tapas|Scandanavian|Kosher)","European"),
+                c("(Vegetarian)","Vegetarian"))
+#Create a vector, the same length as the df
+output_v <- character(nrow(b))
+#For each regex..
+for(i in seq_along(regexes)){
+  
+  #Grep through d$name, and when you find maBShes, insert the relevant 'tag' into
+  #The output vector
+  output_v[grepl(x = b$cuisine,ignore.case = TRUE, pattern = regexes[[i]][1])] <- regexes[[i]][2]
+}
+
+output_v
+#Insert that now-filled output vector into the dataframe
+b$cuisine <- output_v
+
+
 ######################Jing Mu
 rest$GRADE.DATE<-as.Date(rest$GRADE.DATE,format='%m/%d/%Y')
 r_jm <- subset(distinct(rest, CUISINE.DESCRIPTION,DBA, GRADE, GRADE.DATE),

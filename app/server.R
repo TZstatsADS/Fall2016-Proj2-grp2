@@ -29,14 +29,14 @@ output$map <- renderLeaflet({
 
 # Filter bind data
 drawvalue <- reactive({
- #if (input$year == ' '){
- #  t <- filter(b, year %in% input$year)
- #  return(t)
- #}
- #else{
-    t <- filter(b, year %in% input$year)
+ if (input$cuisine == " "){
+   t <- filter(b, year %in% input$year)
+   return(t)
+ }
+ else{
+    t <- filter(b, cuisine %in% input$cuisine, year %in% input$year)
     return(t)
-  })
+  }})
 
 observe({
   draw <- drawvalue()
@@ -78,7 +78,6 @@ drawv <- reactive({
 
 observe({
   draw2 <- drawv()
-  # pal <- colorFactor(col,domain = levels(bind$GRADE))
   
   radius <-  50
   if (length(draw2) > 0) {

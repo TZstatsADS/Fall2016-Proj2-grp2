@@ -11,17 +11,17 @@ library(shiny)
 library(leaflet)
 
 # Choices for drop-downs
-cuisine <- c(
-  "All Crime" = "",
-  "Italian" = "Italian",
-  "Afghan" = "Afghan",
-  "African" = "African",
-  "American" = "American",
-  "Armenian" = "Armenian",
-  "Asian" = "Asian",
-  "Australian" = "Australian"
-)
-#cuisine <- levels(b$cuisine)
+#cuisine <- c(
+#  "All Cuisine" = "",
+#  "Italian" = "Italian",
+#  "Afghan" = "Afghan",
+#  "African" = "African",
+#  "American" = "American",
+#  "Armenian" = "Armenian",
+#  "Asian" = "Asian",
+#  "Australian" = "Australian"
+#)
+cuisine <- cuisine
 
 year <- unique(as.numeric(b$year))
 
@@ -47,7 +47,7 @@ shinyUI(fluidPage(navbarPage("Restaurant Violations", id="nav",
                             width = "auto", height = "auto",
                             
                             h2("Restaurant Scores"),
-                            
+                            selectInput("cuisine", "Cuisine Type", cuisine, selected = " "),
                           
                             # Simple integer interval
                                           sliderInput(inputId="year", label="Filter Years", min=min(year), max=max(year),

@@ -56,7 +56,7 @@ observe({
 
 
 output$map2 <- renderLeaflet({
-  leaflet(bind) %>%
+  leaflet(bind_jm) %>%
     addTiles(
       urlTemplate = "https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZnJhcG9sZW9uIiwiYSI6ImNpa3Q0cXB5bTAwMXh2Zm0zczY1YTNkd2IifQ.rjnjTyXhXymaeYG6r2pclQ",
       attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
@@ -67,11 +67,11 @@ output$map2 <- renderLeaflet({
 # Filter bind data
 drawv <- reactive({
   if (input$GRADE == "All"){
-    k <- bind
+    k <- bind_jm
     return(k)
   }
   else{
-    k <- filter(bind, GRADE == input$GRADE)
+    k <- filter(bind_jm, GRADE == input$GRADE)
     return(k)
   }})
 

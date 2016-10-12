@@ -68,7 +68,7 @@ shinyServer(function(input, output) {
     
     pal <- colorFactor("Set1", colorData1)
 
-    radius2 <-  30
+    radius2 <-  40
    # if (length(draw2) > 0) {
       leafletProxy("map2", data = draw2) %>%
         clearShapes() %>%
@@ -107,15 +107,16 @@ shinyServer(function(input, output) {
     
     pal1 <- colorFactor("Set1", colorData)
     
-    radius1 <- 30
+    radius1 <- 40
     
     leafletProxy("map3", data = draw1) %>%
       clearShapes() %>%
       hideGroup('Cluster') %>%
       addCircles(~long, ~lat, radius=radius1, 
-                 stroke=FALSE, fillOpacity=0.8, fillColor=pal1(colorData)) #%>%
-      #addLegend("bottomleft", pal=pal1, values=colorData, title=colorBy,
-                #layerId="colorLegend")
+                 stroke=FALSE, fillOpacity=0.8, fillColor=pal1(colorData)) %>%
+      addLegend("bottomright", pal=pal1, values=vio_type[as.character(colorData)],
+                title='Example of Violation',
+                layerId="colorLegend")
     
   })
   
@@ -154,25 +155,31 @@ shinyServer(function(input, output) {
       }
   })
   output$heat_plot<-renderPlot({
-      if (input$BORO=="New York")
-      {
-          ggplot(hm_df,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
-
-      }
-      else if (input$BORO=="Manhattan"){
-          ggplot(hm_man,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
-      }
-      else if (input$BORO=="Bronx"){
-          ggplot(hm_bronx,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
-      }
-      else if (input$BORO=="Staten Island"){
-          ggplot(hm_staten,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
-      }
-      else if (input$BORO=="Queens"){
-          ggplot(hm_queens,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
-      }
-      else if (input$BORO=="Brooklyn"){
-          ggplot(hm_brok,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
-      }
+      # if (input$BORO=="New York")
+      # {
+      #     ggplot(hm_df,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
+      # 
+      # }
+      # else if (input$BORO=="Manhattan"){
+      #     ggplot(hm_man,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
+      # }
+      # else if (input$BORO=="Bronx"){
+      #     ggplot(hm_bronx,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
+      # }
+      # else if (input$BORO=="Staten Island"){
+      #     ggplot(hm_staten,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
+      # }
+      # else if (input$BORO=="Queens"){
+      #     ggplot(hm_queens,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
+      # }
+      # else if (input$BORO=="Brooklyn"){
+      #     ggplot(hm_brok,aes(as.factor(month), as.factor(VIOLATION.CODE))) + stat_sum(aes(group = SCORE, colour = VIOLATION.DESCRIPTION),geom = "point")  + scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+xlab("month")+ylab("Violation Code")
+      # }
+    ggplot(temp6,aes(as.factor(VIOLATION.CODE),as.factor(CUISINE.DESCRIPTION))) + 
+      stat_sum(aes(group = percentage, colour = VIOLATION.CODE,weight=1/rest_p),geom = "point", position = position_jitter(width = 0.0, height = 0.0))  +
+      scale_fill_gradient(low = "LightSkyBlue", high = "LightCoral", na.value = "grey")+
+      xlab("Violation Code")+ylab("Cuisine Type") + theme(axis.text = element_text(size = 6))
   })
 })
+Contact GitHub API Training Shop Blog About
+

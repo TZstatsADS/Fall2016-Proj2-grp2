@@ -29,8 +29,8 @@ vars1 <- c(
   'Facility Issues' = 8,
   'Food Storage' = 9,
   'Utility Issues' = 10,
-  'Tabacco Issues' = 15,
-  'Food Nuitrition/Calories' = 16,
+  'Tobacco Issues' = 15,
+  'Food Nutrition/Calories' = 16,
   'Documents Not Present' = 18,
   'Information Not Posted' = 20,
   'Facility Issues 2' = 22,
@@ -51,7 +51,7 @@ shinyUI(fluidPage(navbarPage("Restaurant Violations", id="nav",
                                             includeCSS("styles.css")
                                           ),
 
-                                          leafletOutput("map",width='100%', height='100%'),
+                                          leafletOutput("map",width='100%', height='95%'),
 
                                           # Shiny versions prior to 0.11 should use class="modal" instead.
                                           absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
@@ -76,13 +76,15 @@ shinyUI(fluidPage(navbarPage("Restaurant Violations", id="nav",
                                             includeScript('gomap.js')
                                           ),
 
-                                          leafletOutput('map2',width='100%', height='100%'),
+                                          leafletOutput('map2',width='100%', height='95%'),
 
                                           absolutePanel(id = 'controls', class='panel panel-default', fixed = T,
                                                         draggable = T, top = 60, left = 'auto', right = 20, bottom='auto',
                                                         width=330, height = 'auto',
                                                         h2('Restaurant Grades'),
-                                                        selectInput('GRADE','Restaurant Grades', GRADE))
+                                                        selectInput('GRADE','Restaurant Grades', GRADE,selected = 'B')),
+                                          helpText('This map shows the latest grade for every restaurant.
+                                                   It is for inspectors designing routes to visit certain grade levels.')
 
                                       )),
                              ############################
@@ -109,7 +111,7 @@ shinyUI(fluidPage(navbarPage("Restaurant Violations", id="nav",
                                                         #            step = 1,format='## Days'),
                                                         
                                                         
-                                                        selectInput('type', 'Violation Type', vars1)
+                                                        selectInput('type', 'Violation Example', vars1)
                                                         # radioButtons("color", "Violation Type", vars, selected = '')
                                           ))
                              ),
@@ -129,12 +131,19 @@ shinyUI(fluidPage(navbarPage("Restaurant Violations", id="nav",
                                         ),
 
                                         mainPanel(
-                                          plotOutput("scater_plot",click="plot_click"),
-                                          plotOutput("heat_plot")
+                                          plotOutput("scater_plot",click="plot_click")
+                                          
                                           #verbatimTextOutput("info")
                                         )
                                       )
 
-                             )
+                             ),
+                             
+                             tabPanel("Relationship of Cuisine Types and Violations",
+                                      
+                                      mainPanel(
+                                        plotOutput("heat_plot")
+                                      )
+                                      )
 )
 ))

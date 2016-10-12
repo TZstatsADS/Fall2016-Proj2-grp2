@@ -181,5 +181,5 @@ shinyServer(function(input, output) {
       xlab("Violation Code")+ylab("Cuisine Type") + theme(axis.text = element_text(size = 6))
   })
 })
-Contact GitHub API Training Shop Blog About
+
 
